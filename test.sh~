@@ -1,5 +1,0 @@
-#!/bin/sh
-
-TEST=`git --version`
-
-echo $TEST
