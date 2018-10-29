@@ -127,15 +127,6 @@ sed -i 's/"additional_ports" : {}/"additional_ports" : {"9000":{"password":"'$ra
 if $supervisor; then
    echo "Installing supervisor..."
 cd /usr/local/src
-#wget -c https://files.pythonhosted.org/packages/26/e5/9897eee1100b166a61f91b68528cb692e8887300d9cbdaa1a349f6304b79/setuptools-40.5.0.zip
-#if [ ! -f "./setuptools-40.5.0.zip" ]; then
-#echo "Download fail. Please try again."
-#exit 1;
-#fi
-#unzip setuptools-40.5.0
-#cd setuptools-40.5.0
-#python setup.py install
-cd /usr/local/src
 wget https://bootstrap.pypa.io/ez_setup.py
 if [ ! -f "./ez_setup.py" ]; then
 echo "Download fail. Please try again."
@@ -173,7 +164,7 @@ loglevel=info
 EOF
 echo $file>/etc/supervisor/ssr.conf
 fi
-
+cd /root/shadowsocksr
 if [[ -n "$username" ]]; then
 sed -i 's/"user": "ss"/"user": "'${username}'"/' usermysql.json
 fi
