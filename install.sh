@@ -135,22 +135,20 @@ cd /usr/local/src
 #unzip setuptools-40.5.0
 #cd setuptools-40.5.0
 #python setup.py install
-#cd /usr/local/src
-#wget -c https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
-#if [ ! -f "./supervisor-3.3.2.tar.gz" ]; then
-#echo "Download fail. Please try again."
-#exit 1;
-#fi
-#tar -zxvf supervisor-3.3.2.tar.gz
-#cd supervisor-3.3.2
-#python setup.py install
-wget https://files.pythonhosted.org/packages/45/ae/8a0ad77defb7cc903f09e551d88b443304a9bd6e6f124e75c0fbbf6de8f7/pip-18.1.tar.gz
-if [ ! -f "./pip-18.1.tar.gz" ]; then
+cd /usr/local/src
+wget https://bootstrap.pypa.io/ez_setup.py
+if [ ! -f "./ez_setup.py" ]; then
 echo "Download fail. Please try again."
 exit 1;
 fi
-tar -zxvf pip-18.1.tar.gz
-cd pip-18.1
+python ez_setup.py
+wget -c https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
+if [ ! -f "./supervisor-3.3.2.tar.gz" ]; then
+echo "Download fail. Please try again."
+exit 1;
+fi
+tar -zxvf supervisor-3.3.2.tar.gz
+cd supervisor-3.3.2
 python setup.py install
    echo_supervisord_conf > /etc/supervisord.conf
 file=<<EOF
