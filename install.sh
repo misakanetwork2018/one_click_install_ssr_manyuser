@@ -147,6 +147,7 @@ cat >> /etc/supervisord.conf  << EOF
 files=/etc/supervisor/*.conf #若你本地无/etc/supervisor目录，请自建
 EOF
 mkdir -p /etc/supervisor
+mkdir -p /var/log/supervisord
 cat > /etc/supervisor/ssr.conf <<EOF
 ; 设置进程的名称，使用 supervisorctl 来管理进程时需要使用该进程名
 [program:shadowsocksr]
@@ -154,11 +155,11 @@ command=python server.py
 ;numprocs=1 ; 默认为1 
 ;process_name=%(program_name)s ; 默认为 %(program_name)s，即 [program:x] 中的 x 
 directory=/root/shadowsocksr ; 执行 command 之前，先切换到工作目录
-user=root ; 使用 oxygen 用户来启动该进程
+user=root ; 使用 root 用户来启动该进程
 ; 程序崩溃时自动重启，重启次数是有限制的，默认为3次 autorestart=true 
 redirect_stderr=true
 ; 重定向输出的日志
-stdout_logfile = /var/log/supervisord/tornado_server.log
+stdout_logfile = /var/log/supervisord/ss_server.log
 loglevel=info
 EOF
 fi
