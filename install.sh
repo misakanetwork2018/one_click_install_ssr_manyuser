@@ -164,34 +164,22 @@ stdout_logfile = /var/log/supervisord/ss_server.log
 loglevel=info
 EOF
 fi
-echo $username
-echo $password
-echo $port
-echo $host
-echo $db
-echo $node
 if [[ -n "$username" ]]; then
-echo "174"
 sed -i 's/"user": "ss"/"user": "'$username'"/' /root/shadowsocksr/usermysql.json
 fi
 if [[ -n "$password" ]]; then
-echo "178"
 sed -i 's/"password": "pass"/"password": "'$password'"/' /root/shadowsocksr/usermysql.json
 fi
 if [[ -n "$port" ]]; then
-echo "182"
 sed -i 's/"port": 3306/"port": '$port'/' /root/shadowsocksr/usermysql.json
 fi
 if [[ -n "$host" ]]; then
-echo "186"
-sed -i 's/"host": "127.0.0.1"/"host": "'$host'/"' /root/shadowsocksr/usermysql.json
+sed -i 's/"host": "127.0.0.1"/"host": "'$host'"/' /root/shadowsocksr/usermysql.json
 fi
 if [[ -n "$db" ]]; then
-echo "190"
-sed -i 's/"db": "sspanel"/"db": "'$db'/"' /root/shadowsocksr/usermysql.json
+sed -i 's/"db": "sspanel"/"db": "'$db'"/' /root/shadowsocksr/usermysql.json
 fi
 if [[ -n "$node" ]]; then
-echo "194"
 sed -i 's/"node_id": 0/"node_id": '$node'/' /root/shadowsocksr/usermysql.json
 fi
 
