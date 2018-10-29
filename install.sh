@@ -127,23 +127,29 @@ sed -i 's/"additional_ports" : {}/"additional_ports" : {"9000":{"password":"'$ra
 if $supervisor; then
    echo "Installing supervisor..."
 cd /usr/local/src
-wget -c https://files.pythonhosted.org/packages/26/e5/9897eee1100b166a61f91b68528cb692e8887300d9cbdaa1a349f6304b79/setuptools-40.5.0.zip
-if [ ! -f "./setuptools-40.5.0.zip" ]; then
+#wget -c https://files.pythonhosted.org/packages/26/e5/9897eee1100b166a61f91b68528cb692e8887300d9cbdaa1a349f6304b79/setuptools-40.5.0.zip
+#if [ ! -f "./setuptools-40.5.0.zip" ]; then
+#echo "Download fail. Please try again."
+#exit 1;
+#fi
+#unzip setuptools-40.5.0
+#cd setuptools-40.5.0
+#python setup.py install
+#cd /usr/local/src
+#wget -c https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
+#if [ ! -f "./supervisor-3.3.2.tar.gz" ]; then
+#echo "Download fail. Please try again."
+#exit 1;
+#fi
+#tar -zxvf supervisor-3.3.2.tar.gz
+#cd supervisor-3.3.2
+#python setup.py install
+wget https://bootstrap.pypa.io/get-pip.py
+if [ ! -f "./get-pip.py" ]; then
 echo "Download fail. Please try again."
 exit 1;
 fi
-unzip setuptools-40.5.0
-cd setuptools-40.5.0
-python setup.py install
-cd /usr/local/src
-wget -c https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
-if [ ! -f "./supervisor-3.3.2.tar.gz" ]; then
-echo "Download fail. Please try again."
-exit 1;
-fi
-tar -zxvf supervisor-3.3.2.tar.gz
-cd supervisor-3.3.2
-python setup.py install
+python get-pip.py
    echo_supervisord_conf > /etc/supervisord.conf
 file=<<EOF
 [include]
