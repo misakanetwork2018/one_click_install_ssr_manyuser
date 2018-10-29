@@ -123,6 +123,11 @@ sed -i 's/"additional_ports" : {}/"additional_ports" : {"9000":{"password":"'$ra
 if $supervisor; then
    echo "Installing supervisor..."
 cd /usr/local/src
+wget https://files.pythonhosted.org/packages/26/e5/9897eee1100b166a61f91b68528cb692e8887300d9cbdaa1a349f6304b79/setuptools-40.5.0.zip
+unzip setuptools-40.5.0
+cd setuptools-40.5.0
+python setup.py install
+cd /usr/local/src
 wget https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
 tar -zxvf supervisor-3.3.2.tar.gz
 cd supervisor-3.3.2
