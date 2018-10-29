@@ -164,11 +164,14 @@ stdout_logfile = /var/log/supervisord/ss_server.log
 loglevel=info
 EOF
 fi
-
-echo "username:"$username
+echo $username
+echo $password
+echo $port
+echo $host
+echo $db
+echo $node
 if [[ -n "$username" ]]; then
 sed -i 's/"user": "ss"/"user": "'$username'"/' /root/shadowsocksr/usermysql.json
-
 fi
 if [[ -n "$password" ]]; then
 sed -i 's/"password": "pass"/"password": "'$password'"/' /root/shadowsocksr/usermysql.json
