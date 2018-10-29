@@ -74,6 +74,7 @@ function instdpec()
 		fi
 		$PM -y groupinstall "Development Tools"
 		$PM -y update nss curl
+		$PM -y install unzip
 	elif [ "$1" == "Debian" ] || [ "$1" == "Raspbian" ] || [ "$1" == "Ubuntu" ];then
 		$PM update
 		$PM -y install wget
@@ -82,6 +83,7 @@ function instdpec()
 		$PM -y install git
 		fi
 		$PM -y install build-essential
+		$PM -y install unzip
 	else
 		echo "The shell can be just supported to install ssr on Centos, Ubuntu and Debian."
 		exit 1
@@ -123,12 +125,20 @@ sed -i 's/"additional_ports" : {}/"additional_ports" : {"9000":{"password":"'$ra
 if $supervisor; then
    echo "Installing supervisor..."
 cd /usr/local/src
-wget https://files.pythonhosted.org/packages/26/e5/9897eee1100b166a61f91b68528cb692e8887300d9cbdaa1a349f6304b79/setuptools-40.5.0.zip
+wget -c https://files.pythonhosted.org/packages/26/e5/9897eee1100b166a61f91b68528cb692e8887300d9cbdaa1a349f6304b79/setuptools-40.5.0.zip
+if [ ! -d "./setuptools-40.5.0.zip" ]; then
+echo "Download fail. Please try again."
+exit 1;
+fi
 unzip setuptools-40.5.0
 cd setuptools-40.5.0
 python setup.py install
 cd /usr/local/src
-wget https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
+wget -c https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
+if [ ! -d "./supervisor-3.3.2.tar.gz" ]; then
+echo "Download fail. Please try again."
+exit 1;
+fi
 tar -zxvf supervisor-3.3.2.tar.gz
 cd supervisor-3.3.2
 python setup.py install
