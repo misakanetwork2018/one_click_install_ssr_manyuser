@@ -1,6 +1,6 @@
 #!/bin/sh
 
-GETOPT_ARGS=`getopt -o sp:h:u:P:n:d:r:a -l supervisor,password:,host:,username:,port:,node:,db:,run,autorestart -- "$@"`
+GETOPT_ARGS=`getopt -o sp:h:u:P:n:d:ra -l supervisor,password:,host:,username:,port:,node:,db:,run,autorestart -- "$@"`
 eval set -- "$GETOPT_ARGS"
 OLD_IFS="$IFS"
 IFS=" "
