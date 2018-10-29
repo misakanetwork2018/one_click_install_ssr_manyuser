@@ -98,6 +98,7 @@ echo -e "\033[42;34mInstall dependent packages\033[0m"
 instdpec $DISTRO;
 
 cd /root
+if [ ! -f "/etc/ld.so.conf.d/usr_local_lib.conf" ]; then
 wget https://github.com/jedisct1/libsodium/releases/download/1.0.15/libsodium-1.0.15.tar.gz
 if [ ! -f "./libsodium-1.0.15.tar.gz" ]; then
 echo "Download fail. Please try again."
@@ -110,6 +111,7 @@ ldconfig
 cd /root
 rm -rf libsodium-1.0.15.tar.gz
 rm -rf libsodium-1.0.15
+fi
 
 git clone -b manyuser https://github.com/misakanetwork2018/shadowsocksr.git
 if [ ! -d "./shadowsocksr" ]; then
@@ -126,7 +128,7 @@ if $supervisor; then
    echo "Installing supervisor..."
 cd /usr/local/src
 wget -c https://files.pythonhosted.org/packages/26/e5/9897eee1100b166a61f91b68528cb692e8887300d9cbdaa1a349f6304b79/setuptools-40.5.0.zip
-if [ ! -d "./setuptools-40.5.0.zip" ]; then
+if [ ! -f "./setuptools-40.5.0.zip" ]; then
 echo "Download fail. Please try again."
 exit 1;
 fi
@@ -135,7 +137,7 @@ cd setuptools-40.5.0
 python setup.py install
 cd /usr/local/src
 wget -c https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
-if [ ! -d "./supervisor-3.3.2.tar.gz" ]; then
+if [ ! -f "./supervisor-3.3.2.tar.gz" ]; then
 echo "Download fail. Please try again."
 exit 1;
 fi
