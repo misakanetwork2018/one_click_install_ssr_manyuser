@@ -4,12 +4,12 @@
 
 一键命令：wget --no-check-certificate -O ./install.sh https://raw.githubusercontent.com/misakanetwork2018/one_click_install_ssr_manyuser/master/install.sh && sh install.sh
 
-本脚本可接收以下参数，以便全自动部署：
--s|--supervisor  安装后台守护程序
--r|--run 安装完毕后立刻运行守护程序
--P|--port= 修改usermysql.json中的port
--p|--password= 修改usermysql.json中的password
--h|--host= 修改usermysql.json中的host
--u|--username 修改usermysql.json中的username
--n|--node 修改usermysql.json中的node
--d|--db 修改usermysql.json中的db
+本脚本可接收以下参数，以便全自动部署：  
+-s|--supervisor  安装后台守护程序  
+-r|--run 安装完毕后立刻运行守护程序  
+-P|--port= 修改usermysql.json中的port  
+-p|--password= 修改usermysql.json中的password  
+-h|--host= 修改usermysql.json中的host  
+-u|--username 修改usermysql.json中的username  
+-n|--node 修改usermysql.json中的node  
+-d|--db 修改usermysql.json中的db  
