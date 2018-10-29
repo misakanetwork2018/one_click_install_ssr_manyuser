@@ -165,9 +165,10 @@ loglevel=info
 EOF
 fi
 
+echo "username:"$username
 if [[ -n "$username" ]]; then
 sed -i 's/"user": "ss"/"user": "'$username'"/' /root/shadowsocksr/usermysql.json
-echo $username
+
 fi
 if [[ -n "$password" ]]; then
 sed -i 's/"password": "pass"/"password": "'$password'"/' /root/shadowsocksr/usermysql.json
