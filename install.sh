@@ -1,6 +1,6 @@
 #!/bin/sh
 
-GETOPT_ARGS=`getopt -o sp:h:u:P:n:d:r: -l supervisor,password:,host:,username:,port:,node:,db:,run -- "$@"`
+GETOPT_ARGS=`getopt -o sp:h:u:P:n:d:r:a: -l supervisor,password:,host:,username:,port:,node:,db:,run,autorestart -- "$@"`
 eval set -- "$GETOPT_ARGS"
 OLD_IFS="$IFS"
 IFS=" "
@@ -13,6 +13,7 @@ port=""
 host=""
 node=""
 db=""
+autorestart=false
 run=false
 
 #获取参数
@@ -21,6 +22,7 @@ do
 	case "$1" in
 		-s|--supervisor) supervisor=true;shift 1;;
 		-r|--run) run=true;shift 1;;
+		-a|--autorestart) autorestart=true;shift 1;;
                 -P|--port) port=$2;shift 2;;
                 -p|--password) password=$2;shift 2;;
                 -h|--host) host=$2;shift 2;;
