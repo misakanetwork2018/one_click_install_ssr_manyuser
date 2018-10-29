@@ -147,7 +147,7 @@ cat >> /etc/supervisord.conf  << EOF
 files=/etc/supervisor/*.conf #若你本地无/etc/supervisor目录，请自建
 EOF
 mkdir -p /etc/supervisor
-cat > /etc/supervisord.conf <<EOF
+cat > /etc/supervisor/ssr.conf <<EOF
 ; 设置进程的名称，使用 supervisorctl 来管理进程时需要使用该进程名
 [program:shadowsocksr]
 command=python server.py
