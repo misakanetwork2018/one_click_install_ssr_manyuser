@@ -142,13 +142,12 @@ tar -zxvf supervisor-3.3.2.tar.gz
 cd supervisor-3.3.2
 python setup.py install
    echo_supervisord_conf > /etc/supervisord.conf
-file=<<EOF
+cat >> /etc/supervisord.conf  << EOF
 [include]
 files=/etc/supervisor/*.conf #若你本地无/etc/supervisor目录，请自建
 EOF
-echo $file>> /etc/supervisord.conf
 mkdir -p /etc/supervisor
-file=<<EOF
+cat > /etc/supervisord.conf <<EOF
 ; 设置进程的名称，使用 supervisorctl 来管理进程时需要使用该进程名
 [program:shadowsocksr]
 command=python server.py
@@ -162,23 +161,22 @@ redirect_stderr=true
 stdout_logfile = /var/log/supervisord/tornado_server.log
 loglevel=info
 EOF
-echo $file>/etc/supervisor/ssr.conf
 fi
 cd /root/shadowsocksr
 if [[ -n "$username" ]]; then
-sed -i 's/"user": "ss"/"user": "'${username}'"/' usermysql.json
+sed -i 's/"user": "ss"/"user": "'${username}'"/' ./usermysql.json
 fi
 if [[ -n "$password" ]]; then
-sed -i 's/"password": "pass"/"password": "'${password}'"/' usermysql.json
+sed -i 's/"password": "pass"/"password": "'${password}'"/' ./usermysql.json
 fi
 if [[ -n "$port" ]]; then
-sed -i 's/"port": 3306/"port": '${port}'/' usermysql.json
+sed -i 's/"port": 3306/"port": '${port}'/' ./usermysql.json
 fi
 if [[ -n "$host" ]]; then
-sed -i 's/"host": "127.0.0.1"/"host": "'${host}'/"' usermysql.json
+sed -i 's/"host": "127.0.0.1"/"host": "'${host}'/"' ./usermysql.json
 fi
 if [[ -n "$db" ]]; then
-sed -i 's/"db": "sspanel"/"db": "'${host}'/"' usermysql.json
+sed -i 's/"db": "sspanel"/"db": "'${host}'/"' ./usermysql.json
 fi
 if [[ -n "$node" ]]; then
 sed -i 's/"node_id": 0/"node_id": '${node}'/' usermysql.json
