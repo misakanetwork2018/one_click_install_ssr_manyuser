@@ -204,7 +204,7 @@ supervisorctl reload
 fi
 
 if $autorestart; then
-sed -i 's/\/var\/spool\/cron\/root//' /var/spool/cron/root
+sed -i 's/0 4 * * * supervisorctl reload//' /var/spool/cron/root
 echo "0 4 * * * supervisorctl reload" >> /var/spool/cron/root
 fi
 
