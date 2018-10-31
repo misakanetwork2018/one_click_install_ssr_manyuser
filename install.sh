@@ -124,7 +124,7 @@ cd shadowsocksr
 ./setup_cymysql.sh
 ./initcfg.sh
 random_p=`date +%s%N | md5sum |cut -c 1-16`
-sed -i 's/"additional_ports" : {}/"additional_ports" : {"'$ss_port'":{"password":"'$random_p'"}}' user-config.json
+sed -i 's/"additional_ports" : {}/"additional_ports" : {"'$ss_port'":{"password":"'$random_p'"}}' /root/shadowsocksr/user-config.json
 
 if $supervisor; then
    echo "Installing supervisor..."
