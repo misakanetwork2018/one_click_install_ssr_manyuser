@@ -1,6 +1,6 @@
 #!/bin/sh
 
-GETOPT_ARGS=`getopt -o sp:h:u:P:n:d:ra -l supervisor,password:,host:,username:,port:,node:,db:,run,autorestart -- "$@"`
+GETOPT_ARGS=`getopt -o sp:h:u:P:n:d:raS -l supervisor,password:,host:,username:,port:,node:,db:,run,autorestart,setport -- "$@"`
 eval set -- "$GETOPT_ARGS"
 OLD_IFS="$IFS"
 IFS=" "
@@ -15,12 +15,14 @@ node=""
 db=""
 autorestart=false
 run=false
+ss_port=13590
 
 #获取参数
 while [ -n "$1" ]
 do
 	case "$1" in
 		-s|--supervisor) supervisor=true;shift 1;;
+		-S|--setport) ss_port=$2;shift 2;;
 		-r|--run) run=true;shift 1;;
 		-a|--autorestart) autorestart=true;shift 1;;
                 -P|--port) port=$2;shift 2;;
@@ -122,17 +124,24 @@ cd shadowsocksr
 ./setup_cymysql.sh
 ./initcfg.sh
 random_p=`date +%s%N | md5sum |cut -c 1-16`
-sed -i 's/"additional_ports" : {}/"additional_ports" : {"9000":{"password":"'$random_p'"}}' user-config.json
+sed -i 's/"additional_ports" : {}/"additional_ports" : {"'$ss_port'":{"password":"'$random_p'"}}' user-config.json
 
 if $supervisor; then
    echo "Installing supervisor..."
 cd /usr/local/src
-wget https://bootstrap.pypa.io/ez_setup.py
-if [ ! -f "./ez_setup.py" ]; then
-echo "Download fail. Please try again."
-exit 1;
+if !  command -v easy_install > /dev/null; then
+	wget https://bootstrap.pypa.io/ez_setup.py
+	if [ ! -f "./ez_setup.py" ]; then
+	echo "Download fail. Please try again."
+	exit 1;
+	fi
+	python ez_setup.py
+	if !  command -v easy_install > /dev/null; then
+		echo "Install fail. Please try again."
+		exit 1;
+	fi
 fi
-python ez_setup.py
+if !  command -v /usr/bin/supervisorctl > /dev/null; then
 wget -c https://pypi.python.org/packages/7b/17/88adf8cb25f80e2bc0d18e094fcd7ab300632ea00b601cbbbb84c2419eae/supervisor-3.3.2.tar.gz
 if [ ! -f "./supervisor-3.3.2.tar.gz" ]; then
 echo "Download fail. Please try again."
@@ -140,8 +149,14 @@ exit 1;
 fi
 tar -zxvf supervisor-3.3.2.tar.gz
 cd supervisor-3.3.2
+/usr/bin/supervisorctl stop all
 python setup.py install
-   echo_supervisord_conf > /etc/supervisord.conf
+if !  command -v /usr/bin/supervisorctl > /dev/null; then
+echo "Install fail. Please try again."
+exit 1;
+fi
+fi
+echo_supervisord_conf > /etc/supervisord.conf
 cat >> /etc/supervisord.conf  << EOF
 [include]
 files=/etc/supervisor/*.conf #若你本地无/etc/supervisor目录，请自建
@@ -192,5 +207,7 @@ if $autorestart; then
 sed -i 's/\/var\/spool\/cron\/root//' /var/spool/cron/root
 echo "0 4 * * * supervisorctl reload" >> /var/spool/cron/root
 fi
+
+echo "Your port $ss_port password is $random_p"
 
 echo "Install completely."
