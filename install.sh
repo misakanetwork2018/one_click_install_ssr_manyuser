@@ -206,7 +206,9 @@ sed -i 's/0 4 * * * supervisorctl reload//' /var/spool/cron/root
 echo "0 4 * * * supervisorctl reload" >> /var/spool/cron/root
 	if [ "$DISTRO" == "CentOS" ] || [ "$DISTRO" == "CentOS7" ];then
 		echo "supervisord" >> /etc/rc.local
+		if [ "$DISTRO" == "CentOS7" ]; then
 		chmod +x /etc/rc.local
+		fi
 	elif [ "$DISTRO" == "Debian" ] || [ "$DISTRO" == "Raspbian" ] || [ "$DISTRO" == "Ubuntu" ];then
 		sed -i 's/exit 0/supervisord\nexit 0/' /etc/rc.local
 	fi
