@@ -113,6 +113,11 @@ rm -rf libsodium-1.0.15.tar.gz
 rm -rf libsodium-1.0.15
 fi
 
+cd shadowsocksr
+./stop.sh
+cd ..
+rm -rf shadowsocksr
+
 git clone -b manyuser https://github.com/misakanetwork2018/shadowsocksr.git
 if [ ! -d "./shadowsocksr" ]; then
 echo "Download fail. Please try again."
