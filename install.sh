@@ -115,7 +115,7 @@ fi
 
 cd shadowsocksr
 ./stop.sh
-cd ..
+cd /root
 rm -rf shadowsocksr
 
 git clone -b manyuser https://github.com/misakanetwork2018/shadowsocksr.git
