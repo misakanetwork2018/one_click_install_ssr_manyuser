@@ -76,7 +76,6 @@ function instdpec()
 		fi
 		$PM -y groupinstall "Development Tools"
 		$PM -y update nss curl
-		$PM -y install unzip
 	elif [ "$1" == "Debian" ] || [ "$1" == "Raspbian" ] || [ "$1" == "Ubuntu" ];then
 		$PM update
 		$PM -y install wget
@@ -85,7 +84,6 @@ function instdpec()
 		$PM -y install git
 		fi
 		$PM -y install build-essential
-		$PM -y install unzip
 	else
 		echo "The shell can be just supported to install ssr on Centos, Ubuntu and Debian."
 		exit 1
